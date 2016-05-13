@@ -9,7 +9,7 @@ export const SEARCH_ABORTED = 'SEARCH_ABORTED';
 
 export function initSearch() {
   return actions => {
-    const search$ = actions.ofType('SEARCH')
+    return actions.ofType('SEARCH')
       .debounceTime(400)
       .map(a => a.payload)
       .filter(q => q)
@@ -20,9 +20,7 @@ export function initSearch() {
         type: SEARCH_FULFILLED,
         payload: artists,
       }))
-      .takeUntil(actions.ofType('STOP_SEARCH'))
-
-    return search$;
+      .takeUntil(actions.ofType('STOP_SEARCH'));
   };
 }
 
